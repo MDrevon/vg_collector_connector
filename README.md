@@ -1,1 +1,0 @@
-# vg_collector_connector
