@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,27 +12,35 @@ function Login() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
+  const handleNewUser = (event) => {
+    event.preventDefault();
+    navigate("/NewUser");
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const loginData = {
-      email,
-      password,
-    };
+    let formData = new FormData(event.form);
 
     fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "Access-Control-Allow-Origin": "http://localhost:3000",
-        // "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": "true",
       },
-      body: JSON.stringify(loginData),
+      body: JSON.stringify(formData),
       credentials: "include",
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if ((data.message = "Logged In")) {
+          navigate("/Home");
+        }
+      });
 
-    if (localStorage.getItem("jwt")) {
-      navigate("/pages/Home");
-    }
+    // if (localStorage.getItem("jwt")) {
+    //   navigate("/Home");
+    // }
   };
 
   return (
@@ -45,23 +53,22 @@ function Login() {
           <label>E-Mail:</label>
           <input
             type="text"
-            value={email}
+            name="email"
             autoComplete="email"
-            onChange={handleEmailChange}
             id="email"
           ></input>
         </div>
         <div>
           <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            id="password"
-          ></input>
+          <input type="password" name="password" id="password"></input>
         </div>
         <div>
           <button type="submit">Submit</button>
+        </div>
+        <div>
+          <button type="button" name="newUser" onClick={handleNewUser}>
+            New User
+          </button>
         </div>
       </form>
     </div>
