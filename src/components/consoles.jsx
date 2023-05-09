@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Consoles() {
+function Consoles(props) {
   const [consoles, setConsoles] = useState([]);
   const [selectedConsole, setSelectedConsole] = useState("");
 
@@ -16,7 +16,9 @@ function Consoles() {
   }, []);
 
   const handleConsoleChange = (event) => {
-    setSelectedConsole(event.target.value);
+    const selectedValue = event.target.value;
+    props.onConsoleChange(selectedValue);
+    setSelectedConsole(selectedValue);
   };
 
   return (
@@ -29,7 +31,7 @@ function Consoles() {
       >
         <option value="">--Please choose a Console--</option>
         {consoles.map((console) => (
-          <option key={console.id} value={console.consolename}>
+          <option key={console.id} value={console.id}>
             {console.consolename}
           </option>
         ))}

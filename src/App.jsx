@@ -13,26 +13,28 @@ import NewUser from "./pages/NewUser/NewUser";
 import Tradelist from "./pages/Tradelist/Tradelist";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import Collection from "./pages/Collection/Collection";
+import AddGame from "./pages/AddGame/AddGame";
+import Layout from "./layout";
+import Flexbox from "./flexbox";
 
 const routeDefinitions = createRoutesFromElements(
   <Route>
-    <Route path="/" element={<Login />} />
+    <Route path="/" element={<Flexbox />} />
     <Route path="/Login" element={<Login />} />
     <Route path="/Home" element={<Home />} />
     <Route path="/NewUser" element={<NewUser />} />
     <Route path="/Tradelist" element={<Tradelist />} />
     <Route path="/Wishlist" element={<Wishlist />} />
     <Route path="/Collection" element={<Collection />} />
+    <Route path="/AddGame" element={<AddGame />} />
   </Route>
 );
 
 const router = createBrowserRouter(routeDefinitions);
 
 function App() {
-  // const [count, setCount] = useState(0);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  //const [isAuthenticated, setIsAuthenticated] = useState(false);
   //const isAuthenticated = useAuth();
-  //const navigate = useNavigate();
 
   // useEffect(() => {
   //   setIsAuthenticated(useAuth());
@@ -50,15 +52,11 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <div className="container">
+        <div className="title">Video Game Collector Connector</div>
+        <RouterProvider router={router} />
+      </div>
     </>
-    // <Routes>
-    //   {isAuthenticated && (
-    //     <Route exact path="/pages/Home/Home" element={<Home />} />
-    //   )}
-    //   <Route exact path="pages/Login/Login" element={<Login />} />
-    //   <Route exact path="*" element={<p>Path not resolved</p>} />
-    // </Routes>
   );
 }
 

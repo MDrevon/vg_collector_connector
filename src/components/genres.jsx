@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Genres() {
+function Genres(props) {
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
 
@@ -16,7 +16,9 @@ function Genres() {
   }, []);
 
   const handleGenreChange = (event) => {
-    setSelectedGenre(event.target.value);
+    const selectedValue = event.target.value;
+    props.onGenreChange(selectedValue);
+    setSelectedGenre(selectedValue);
   };
 
   return (
@@ -25,7 +27,7 @@ function Genres() {
       <select id="genre" value={selectedGenre} onChange={handleGenreChange}>
         <option value="">--Please choose a Genre--</option>
         {genres.map((genre) => (
-          <option key={genre.id} value={genre.genrename}>
+          <option key={genre.id} value={genre.id}>
             {genre.genrename}
           </option>
         ))}

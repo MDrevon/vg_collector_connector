@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function NewUser() {
   const navigate = useNavigate();
@@ -20,19 +20,23 @@ function NewUser() {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const userData = {
       fname,
       lname,
       email,
       password,
     };
+    //    console.log(userData);
     fetch("http://localhost:3000/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Allow-Credentials": "true",
       },
       body: JSON.stringify(userData),
     })
@@ -43,8 +47,9 @@ function NewUser() {
         }
       });
   };
+
   return (
-    <div>
+    <div className="login">
       <form onSubmit={handleSubmit}>
         <div>
           <b>New User</b>
@@ -53,7 +58,7 @@ function NewUser() {
           <label>First Name:</label>
           <input
             type="text"
-            value={fname}
+            name="fname"
             autoComplete="given-name"
             onChange={handleFNameChange}
             id="fname"
@@ -63,7 +68,7 @@ function NewUser() {
           <label>Last Name:</label>
           <input
             type="text"
-            value={lname}
+            name="lname"
             autoComplete="family-name"
             onChange={handleLNameChange}
             id="lname"
@@ -73,7 +78,7 @@ function NewUser() {
           <label>E-Mail:</label>
           <input
             type="email"
-            value={email}
+            name="email"
             autoComplete="email"
             onChange={handleEmailChange}
             id="email"
@@ -83,7 +88,7 @@ function NewUser() {
           <label>Password:</label>
           <input
             type="password"
-            value={password}
+            name="password"
             autoComplete="new-password"
             onChange={handlePasswordChange}
             id="password"

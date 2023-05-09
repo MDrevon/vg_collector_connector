@@ -67,3 +67,51 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.title {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  justify-content: center;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  width: 100%;
+}
+
+.navbar {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  justify-content: center;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  width: 100%;
+}
+
+.login {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  justify-content: center;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  width: 100%;
+}
+
+.sidemenu {
+  display: block;
+  flex-direction: column;
+  justify-content: left;
+}

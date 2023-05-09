@@ -1,26 +1,32 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleNewUser = (event) => {
     event.preventDefault();
     navigate("/NewUser");
   };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    let formData = new FormData(event.form);
-
+    // let formData = new FormData(event.form);
+    // console.log(formData);
+    let loginData = {
+      email,
+      password,
+    };
     fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: {
@@ -28,7 +34,7 @@ function Login() {
         "Access-Control-Allow-Origin": "http://localhost:3000",
         "Access-Control-Allow-Credentials": "true",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(loginData),
       credentials: "include",
     })
       .then((response) => response.json())
@@ -37,14 +43,10 @@ function Login() {
           navigate("/Home");
         }
       });
-
-    // if (localStorage.getItem("jwt")) {
-    //   navigate("/Home");
-    // }
   };
 
   return (
-    <div>
+    <div className="login">
       <form onSubmit={handleSubmit}>
         <div>
           <b>Login</b>
@@ -54,13 +56,19 @@ function Login() {
           <input
             type="text"
             name="email"
+            onChange={handleEmailChange}
             autoComplete="email"
             id="email"
           ></input>
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" name="password" id="password"></input>
+          <input
+            onChange={handlePasswordChange}
+            type="password"
+            name="password"
+            id="password"
+          ></input>
         </div>
         <div>
           <button type="submit">Submit</button>
